@@ -1,14 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './style/App.scss'
 import Navbar from './components/Navbar'
+import Home from './pages/Home'
 
-function App() {
+const App = () => {
   
+    const router = createBrowserRouter([
+        {path: '/explore', element: <Navbar />}
+    ])
 
     return (
-        <>
-        <Navbar />
-        </>
+        <div className='app'>
+            <Navbar />
+            <Home />
+        </div>
     )
 }
 

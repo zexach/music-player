@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100;200;300;400;500;600;700;800&display=swap');
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -14,10 +16,15 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Geologica', sans-serif;
 }
 
 body{
   width: 100%;
   min-height: 100vh;
+}
+
+a{
+	color: inherit;
+    text-decoration: none;
 }
