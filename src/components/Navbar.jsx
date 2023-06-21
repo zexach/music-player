@@ -8,38 +8,40 @@ import genresIcon from '../assets/genres.svg'
 import home from '../assets/home.svg'
 import '../style/Navbar.scss'
 import NavbarElement from "./NavbarElement";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const Navbar = () => {
 
     const [menu, setMenu] = useState([
         {
-            icon: home, page: 'Home'
+            icon: home, page: 'Home', path: '/home'
         },
         {
-            icon: searchIcon, page: 'Explore'
+            icon: searchIcon, page: 'Explore', path: '/explore'
         },
         {
-            icon: genresIcon, page: 'Genres'
+            icon: genresIcon, page: 'Genres', path: '/genres'
         },
         {
-            icon: albumsIcom, page: 'Albums'
+            icon: albumsIcom, page: 'Albums', path: '/albums'
         },
         {
-            icon: artistsIcon, page: 'Artists'
+            icon: artistsIcon, page: 'Artists', path: '/artists'
         }
     ]);
 
     return(
-        <div className="navbar">
-            <div className="navbar__title">
-                <img src={musicLogo} alt="" />
-                <h2 className="navbar__title__app-name">Star Tunes</h2>
+        <>
+            <div className="navbar">
+                <div className="navbar__title">
+                    <img src={musicLogo} alt="" />
+                    <h2 className="navbar__title__app-name">Star Tunes</h2>
+                </div>
+                <div className="navbar__content">
+                    {menu.map((item, index) => <NavbarElement key={index} icon={item.icon} title={item.page} path={item.path} /> )}
+                </div>
             </div>
-            <div className="navbar__content">
-                {menu.map((item, index) => <NavbarElement key={index} icon={item.icon} title={item.page} /> )}
-            </div>
-        </div>
+        </>
     );
 }
 

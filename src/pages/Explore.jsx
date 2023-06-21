@@ -1,13 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const Home = () => {
+const Explore = () => {
 
     return(
-        <div className="home">
-            home
+        <div className="explore">
+            explore
         </div>
     )
 }
 
-export default Home;
+export default Explore;
