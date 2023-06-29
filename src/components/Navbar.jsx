@@ -14,7 +14,7 @@ const Navbar = () => {
 
     const [menu, setMenu] = useState([
         {
-            icon: home, page: 'Home', path: '/home'
+            icon: home, page: 'Home', path: '/'
         },
         {
             icon: searchIcon, page: 'Explore', path: '/explore'
