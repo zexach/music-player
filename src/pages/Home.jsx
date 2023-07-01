@@ -8,7 +8,7 @@ const Home = () => {
     const redirectURI = import.meta.env.VITE_REDIRECT_URI;
     const responseType = import.meta.env.VITE_RESPONSE_TYPE;
 
-    const [token, setToken] = useState({});
+    const [token, setToken] = useState(null);
 
     const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}`;
 
@@ -28,13 +28,12 @@ const Home = () => {
 
     useEffect(() => {
 
-        console.log(getDataFromURL());
-
-        window.localStorage.setItem('token', getDataFromURL().access_token);
-        window.localStorage.setItem('type', getDataFromURL().token_type);
-        window.localStorage.setItem('expiresIn', getDataFromURL().expires_in);
-
-
+        const spotifyToken = getDataFromURL().access_token;
+        let hash = window.location.hash;
+        if(hash){
+            window.localStorage.setItem("token", spotifyToken);
+            setToken(spotifyToken);
+        }
     }, [])
 
     return(
