@@ -1,0 +1,22 @@
+@import 'variables';
+
+
+.home{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    &__login-section{
+        height: fit-content;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        &__login-btn{
+            padding: 0.7rem 1.5rem;
+            border-radius: 20px;
+            background-color: $blue;
+            color: white;
+        }
+    }
+}
