@@ -1,0 +1,15 @@
+@import 'variables';
+
+.btn{
+    padding: 0.7rem 2rem;
+    border: 0;
+    border-radius: 15px;
+    background-color: $blue;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover{
+        scale: 1.05;
+    }
+}
