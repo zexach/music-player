@@ -4,8 +4,12 @@
 .home{
     width: 100%;
     min-height: 100vh;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
+    gap: 3rem;
+    color: rgb(85, 85, 85);
+    background-color: $light-gray;
     &__login-section{
         height: fit-content;
         padding: 1.5rem;

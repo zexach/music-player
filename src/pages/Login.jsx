@@ -19,8 +19,7 @@ const Login = () => {
             
             return initial;
         }, {})
-
-
+        
         return data;      
     }
 

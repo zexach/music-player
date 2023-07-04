@@ -1,0 +1,10 @@
+.artist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    &__img{
+        width: 100px;
+        border-radius: 20px;
+    }
+}

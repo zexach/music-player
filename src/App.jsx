@@ -1,22 +1,17 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
 import './style/App.scss'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import Explore from './pages/Explore'
+import { useState } from 'react'
 import Login from './pages/Login'
+import MusicApp from './pages/MusicApp'
 
 const App = () => {
 
+    const [token, setToken] = useState(localStorage.getItem("token"));
+
     return (
-        <Login />
-        /*<div className='app'>
-            <Navbar />
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='explore' element={<Explore />} />
-            </Routes>
-        </div>*/
+        <>
+            {token === null
+              ? <Login /> : <MusicApp />}
+        </>
     )
 }
 
