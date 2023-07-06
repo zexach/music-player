@@ -1,0 +1,12 @@
+@import 'variables';
+
+.genre{
+    width: fit-content;
+    padding: 0.3rem 2rem;
+    border-radius: 20px;
+    background-color: #fff;
+    &__name{
+        color: black;
+        font-weight: 600;
+    }
+}

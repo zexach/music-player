@@ -1,0 +1,41 @@
+@import 'variables';
+
+.artist-header{
+    width: 100%;
+    padding: 2rem 0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+
+    background: rgb(14,17,17);
+    background: linear-gradient(90deg, rgba(14,17,17,1) 0%, rgba(2,12,24,1) 100%);
+    &__img{
+        width: 330px;
+        border-radius: 40px;
+        box-shadow: -1px -12px 37px 26px rgba(9,9,9,1);
+
+        filter: brightness(40%);
+    }
+    &__artist-info{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: absolute;
+        z-index: 2;
+        left: 3rem;
+        bottom: 3rem;
+        color: #fff;
+        &__name{
+            font-size: 70px;
+        }
+        &__followers{
+            font-size: 20px;
+            font-weight: 400;
+        }
+        &__genres{
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+        }
+    }
+}
