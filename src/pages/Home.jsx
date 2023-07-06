@@ -4,12 +4,13 @@ import '../style/Home.scss'
 import axios from "axios";
 import Trending from "../components/Trending";
 import TopArtists from "../components/TopArtists";
+import SingleArtist from "./SingleArtist";
 
 const Home = () => {
 
     const token = localStorage.getItem("token");
-    const artists_id = '2CIMQHirSU0MQqyYHq0eOx,1vCWHaC5f2uS3yhpwWbIA6,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,6VuMaDnrHyPL1p4EHjYLi7,49bzE5vRBRIota4qeHtQM8';
 
+    const artists_id = '2CIMQHirSU0MQqyYHq0eOx,1vCWHaC5f2uS3yhpwWbIA6,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,6VuMaDnrHyPL1p4EHjYLi7,49bzE5vRBRIota4qeHtQM8';
     const [artists, setArtists] = useState([]);
 
     const getArtists = async() => {
@@ -59,7 +60,7 @@ const Home = () => {
                     :
                     <div>Loading...</div>
             }
-            <TopArtists artists={artists} />
+            {artists ? <TopArtists artists={artists} /> : <div>Loading...</div>}
         </div>
     )
 }

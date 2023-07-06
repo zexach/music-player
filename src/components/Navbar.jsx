@@ -5,29 +5,18 @@ import searchIcon from '../assets/search.svg'
 import albumsIcom from '../assets/albums.svg'
 import artistsIcon from '../assets/artists.svg'
 import genresIcon from '../assets/genres.svg'
-import home from '../assets/home.svg'
+import homeIcon from '../assets/home.svg'
 import '../style/Navbar.scss'
 import NavbarElement from "./NavbarElement";
-import { Link, Outlet } from "react-router-dom";
 
 const Navbar = () => {
 
     const [menu, setMenu] = useState([
-        {
-            icon: home, page: 'Home', path: '/'
-        },
-        {
-            icon: searchIcon, page: 'Explore', path: '/explore'
-        },
-        {
-            icon: genresIcon, page: 'Genres', path: '/genres'
-        },
-        {
-            icon: albumsIcom, page: 'Albums', path: '/albums'
-        },
-        {
-            icon: artistsIcon, page: 'Artists', path: '/artists'
-        }
+        {icon: homeIcon, page: 'Home', path: '/'},
+        {icon: searchIcon, page: 'Explore', path: '/explore'},
+        {icon: genresIcon, page: 'Genres', path: '/genres'},
+        {icon: albumsIcom, page: 'Albums', path: '/albums'},
+        {icon: artistsIcon, page: 'Artists', path: '/artists'}
     ]);
 
     return(

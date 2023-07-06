@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Home from './Home'
 import Explore from './Explore'
 import '../style/App.scss'
+import SingleArtist from "./SingleArtist";
 
 const MusicApp = () => {
 
@@ -13,6 +14,7 @@ const MusicApp = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='explore' element={<Explore />} />
+                <Route path='artist/:id' element={<SingleArtist />} />
             </Routes>
         </div>
     );

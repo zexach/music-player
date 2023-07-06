@@ -24,12 +24,10 @@ const Login = () => {
     }
 
     useEffect(() => {
-        const _token = window.localStorage.getItem('token');
         const hash = window.location.hash;
         if(hash){
             const spotifyToken = getDataFromURL().access_token;
             window.localStorage.setItem("token", spotifyToken);
-            window.location.hash = '';
         }
     }, [])
 
