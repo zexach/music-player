@@ -22,7 +22,6 @@ const SingleArtist = () => {
                     }
                 }
             )
-            console.log(response.data);
             setArtist(response.data);
         }catch(e){
             console.log(e);
@@ -47,6 +46,32 @@ const SingleArtist = () => {
         }
     }
 
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleIsLiked = async() => {
+        /*if(!isLiked){
+            try{
+                const response = await axios.get(`${URL}/me/following/contains?type=artist&ids=${id}`, 
+                {
+                    "ids": [
+                        "string"
+                    ]
+                },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                )
+                console.log(response);
+            }catch(e){
+                console.log(e);
+            }
+        }*/
+        setIsLiked(!isLiked);
+    }
+
     useEffect(() => {
         getArtist();
         getArtistTopTracks();
@@ -59,7 +84,9 @@ const SingleArtist = () => {
             artist={artist.name} 
             followers={artist.followers.total} 
             image={artist.images[0].url} 
-            genres={artist.genres} /> : 
+            genres={artist.genres}
+            isLiked={isLiked}
+            handleLike={handleIsLiked} /> : 
             <div>Loading</div> }
         </div>
     );

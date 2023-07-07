@@ -1,6 +1,10 @@
 import React from "react";
 import '../style/SingleArtistHeader.scss'
 import Genre from "./Genre";
+import LikeButton from "./LikeButton";
+import Like from '../assets/heartNoFill.svg'
+import Unlike from '../assets/heartFill.svg'
+
 
 const SingleArtistHeader = (props) => {
 
@@ -13,6 +17,7 @@ const SingleArtistHeader = (props) => {
                     <h3 className="artist-header__artist-info__followers">{props.followers.toLocaleString('en-US')} followers</h3>
                     <div className="artist-header__artist-info__genres">
                         {props.genres ? props.genres.map((genre, index) => <Genre key={index} genre={genre} />) : 'Loading' }
+                        {props.isLiked ? <LikeButton handleLikeClick={props.handleLike} icon={Unlike} /> : <LikeButton handleLikeClick={props.handleLike} icon={Like} />}
                     </div>
                 </div>
             </div>
