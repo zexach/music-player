@@ -28,6 +28,7 @@ const Login = () => {
         if(hash){
             const spotifyToken = getDataFromURL().access_token;
             window.localStorage.setItem("token", spotifyToken);
+            window.location.hash = '';
         }
     }, [])
 

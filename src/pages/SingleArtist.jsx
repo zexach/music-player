@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import '../style/SingleArtist.scss'
 import SingleArtistHeader from "../components/SingleArtistHeader";
+import TopTracks from "../components/TopTracks";
 
 const SingleArtist = () => {
 
@@ -79,15 +80,18 @@ const SingleArtist = () => {
 
     return(
         <div className="single-artist">
-            { artist && artist.followers ? 
-            <SingleArtistHeader 
-            artist={artist.name} 
-            followers={artist.followers.total} 
-            image={artist.images[0].url} 
-            genres={artist.genres}
-            isLiked={isLiked}
-            handleLike={handleIsLiked} /> : 
-            <div>Loading</div> }
+            { 
+                artist && artist.followers ? 
+                    <SingleArtistHeader 
+                        artist={artist.name} 
+                        followers={artist.followers.total} 
+                        image={artist.images[0].url} 
+                        genres={artist.genres}
+                        isLiked={isLiked}
+                        handleLike={handleIsLiked} /> : 
+                    <div>Loading</div> 
+            }
+            <TopTracks />
         </div>
     );
 }
