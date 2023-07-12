@@ -67,10 +67,13 @@ const SingleArtist = () => {
         setIsLiked(!isLiked);
     }
 
+    const [albums, setAlbums] = useState();
+
     const getArtistAlbums = async() => {
         try{
             const response = await axios.get(`${URL}/artists/${id}/albums`, config);
-            console.log(response.data);
+            console.log(response.data.items);
+            setAlbums(response.data.items);
         }catch(e){
             console.log(e);
         }
@@ -97,10 +100,11 @@ const SingleArtist = () => {
             }
             {
                 topTracks.tracks ? 
-                    <TopTracks tracks={topTracks.tracks} /> : 
-                    <div>Loading...</div>
+                    <TopTracks tracks={topTracks.tracks} /> : ''
             }
-            <ArtistAlbum />
+            {
+                albums ? <ArtistAlbum albums={albums} /> : ''
+            }
         </div>
     );
 }

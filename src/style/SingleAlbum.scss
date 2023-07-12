@@ -1,16 +1,19 @@
 @import 'variables';
 
 .single-album{
+    width: 170px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.7rem;
     border-radius: 5px;
-    background-color: #f8f8f8;
+    background-color: $light-gray;
     box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.092);
+    cursor: pointer;
+    transition: 0.3s;
     &__img{
-        width: 200px;
+        width: 160px;
         border-radius: 5px;
     }
     &__details{
@@ -19,5 +22,10 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        color: $font-gray;
+        font-size: 14px;
+    }
+    &:hover{
+        scale: 1.04;
     }
 }

@@ -16,8 +16,8 @@ const TopTracks = (props) => {
                             image={track.album.images[0].url} 
                             name={track.name} 
                             duration={track.duration_ms}
-                            explicit={track.explicit} />) 
-                    : <div>Loading...</div> 
+                            explicit={track.explicit} />) :
+                            '' 
                 }
             </div>
         </div>

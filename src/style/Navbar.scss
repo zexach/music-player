@@ -2,7 +2,7 @@
 
 .navbar{
     width: fit-content;
-    height: 100vh;
+    min-height: 100vh;
     padding: 2rem 3rem;
     background: rgb(242,242,242);
     background: radial-gradient(circle, rgba(242,242,242,1) 0%, rgba(249,249,249,1) 100%);

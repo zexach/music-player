@@ -5,6 +5,9 @@
     gap: 1rem;
     &__elements{
         display: flex;
-        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
     }
 }
