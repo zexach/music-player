@@ -5,24 +5,25 @@ import axios from "axios";
 import '../style/SingleArtist.scss'
 import SingleArtistHeader from "../components/SingleArtistHeader";
 import TopTracks from "../components/TopTracks";
+import ArtistAlbum from "../components/ArtistAlbums";
 
 const SingleArtist = () => {
 
     const token = localStorage.getItem("token");
     const {id} = useParams();
     const URL = import.meta.env.VITE_API_URL;
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
 
     const [artist, setArtist] = useState({});
 
     const getArtist = async() => {
         try{
-            const response = await axios.get(`${URL}/artists/${id}`, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+            const response = await axios.get(`${URL}/artists/${id}`, config);
+            
             setArtist(response.data);
         }catch(e){
             console.log(e);
@@ -33,13 +34,7 @@ const SingleArtist = () => {
 
     const getArtistTopTracks = async() => {
         try{
-            const response = await axios.get(`${URL}/artists/${id}/top-tracks?market=US`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+            const response = await axios.get(`${URL}/artists/${id}/top-tracks?market=US`, config);
             setTopTracks(response.data)
         }catch(e){
             console.log(e);
@@ -74,14 +69,8 @@ const SingleArtist = () => {
 
     const getArtistAlbums = async() => {
         try{
-            const response = await axios.get(`${URL}/artists/${id}/albums`, 
-            {
-                headers:{
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await axios.get(`${URL}/artists/${id}/albums`, config);
             console.log(response.data);
-
         }catch(e){
             console.log(e);
         }
@@ -111,6 +100,7 @@ const SingleArtist = () => {
                     <TopTracks tracks={topTracks.tracks} /> : 
                     <div>Loading...</div>
             }
+            <ArtistAlbum />
         </div>
     );
 }

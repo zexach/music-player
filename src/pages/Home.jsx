@@ -9,19 +9,18 @@ const Home = () => {
 
     const token = localStorage.getItem("token");
     const URL = import.meta.env.VITE_API_URL;
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
 
     const artists_id = '2CIMQHirSU0MQqyYHq0eOx,1vCWHaC5f2uS3yhpwWbIA6,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,6VuMaDnrHyPL1p4EHjYLi7,49bzE5vRBRIota4qeHtQM8';
     const [artists, setArtists] = useState([]);
 
     const getArtists = async() => {
         try{
-            const response = await axios.get(`${URL}/artists?ids=${artists_id}`,
-                {
-                    headers:{
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+            const response = await axios.get(`${URL}/artists?ids=${artists_id}`, config);
             setArtists(response.data.artists);
         }catch(e){
             console.log(e);
@@ -33,13 +32,7 @@ const Home = () => {
 
     const getTrendingTrack = async() => {
         try{
-            const response = await axios.get(`${URL}/tracks/${trending_track_id}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+            const response = await axios.get(`${URL}/tracks/${trending_track_id}`, config);
             setTrendingTrack(response.data);
         }catch(e){
             console.log(e);
