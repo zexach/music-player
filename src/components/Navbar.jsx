@@ -8,6 +8,7 @@ import genresIcon from '../assets/genres.svg'
 import homeIcon from '../assets/home.svg'
 import '../style/Navbar.scss'
 import NavbarElement from "./NavbarElement";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -22,10 +23,12 @@ const Navbar = () => {
     return(
         <>
             <div className="navbar">
-                <div className="navbar__title">
-                    <img src={musicLogo} alt="" />
-                    <h2 className="navbar__title__app-name">Star Tunes</h2>
-                </div>
+                <Link to='/'>
+                    <div className="navbar__title">
+                        <img src={musicLogo} alt="" />
+                        <h2 className="navbar__title__app-name">Star Tunes</h2>
+                    </div>
+                </Link>
                 <div className="navbar__content">
                     {menu.map((item, index) => <NavbarElement key={index} icon={item.icon} title={item.page} path={item.path} /> )}
                 </div>

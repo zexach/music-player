@@ -14,10 +14,10 @@ const SingleArtistHeader = (props) => {
                 <img src={props.image} alt="artist" className="artist-header__img" />
                 <div className="artist-header__artist-info">
                     <h1 className="artist-header__artist-info__name">{props.artist}</h1>
-                    <h3 className="artist-header__artist-info__followers">{props.followers.toLocaleString('en-US')} followers</h3>
+                    { props.followers ? <h3 className="artist-header__artist-info__followers">{props.followers.toLocaleString('en-US')} followers</h3> : '' }
                     <div className="artist-header__artist-info__genres">
-                        {props.genres ? props.genres.map((genre, index) => <Genre key={index} genre={genre} />) : 'Loading' }
-                        {props.isLiked ? <LikeButton handleLikeClick={props.handleLike} icon={Unlike} /> : <LikeButton handleLikeClick={props.handleLike} icon={Like} />}
+                        { props.genres ? props.genres.map((genre, index) => <Genre key={index} genre={genre} />) : 'Loading' }
+                        { props.isLiked ? <LikeButton handleLikeClick={props.handleLike} icon={Unlike} /> : <LikeButton handleLikeClick={props.handleLike} icon={Like} /> }
                     </div>
                 </div>
             </div>

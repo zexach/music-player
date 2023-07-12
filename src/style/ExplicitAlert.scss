@@ -1,0 +1,9 @@
+@import 'variables';
+
+.explicit-content{
+    padding: 0.3rem;
+    border: 1px solid $gray;
+    border-radius: 3px;
+    font-size: 10px;
+    color: $font-gray;
+}

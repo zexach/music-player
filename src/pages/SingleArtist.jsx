@@ -72,9 +72,25 @@ const SingleArtist = () => {
         setIsLiked(!isLiked);
     }
 
+    const getArtistAlbums = async() => {
+        try{
+            const response = await axios.get(`${URL}/artists/${id}/albums`, 
+            {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log(response.data);
+
+        }catch(e){
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
         getArtist();
         getArtistTopTracks();
+        getArtistAlbums();
     }, [])
 
     return(
@@ -88,7 +104,7 @@ const SingleArtist = () => {
                         genres={artist.genres}
                         isLiked={isLiked}
                         handleLike={handleIsLiked} /> : 
-                    <div>Loading</div> 
+                    <div>Loading...</div> 
             }
             {
                 topTracks.tracks ? 
