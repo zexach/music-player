@@ -8,7 +8,15 @@ const TopTracks = (props) => {
         <div className="top-tracks">
             <h3 className="top-tracks-title">Popular Hits</h3>
             <div className="top-tracks__elements">
-                <SingleTrack />
+                { props.tracks ? 
+                    props.tracks.map((track, index) => 
+                        <SingleTrack 
+                            key={index} 
+                            image={track.album.images[0].url} 
+                            name={track.name} 
+                            duration={track.duration_ms} />) 
+                    : <div>Loading...</div> 
+                }
             </div>
         </div>
     );

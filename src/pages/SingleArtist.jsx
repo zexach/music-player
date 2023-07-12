@@ -40,7 +40,6 @@ const SingleArtist = () => {
                     }
                 }
             )
-            console.log(response.data);
             setTopTracks(response.data)
         }catch(e){
             console.log(e);
@@ -91,7 +90,11 @@ const SingleArtist = () => {
                         handleLike={handleIsLiked} /> : 
                     <div>Loading</div> 
             }
-            <TopTracks />
+            {
+                topTracks.tracks ? 
+                    <TopTracks tracks={topTracks.tracks} /> : 
+                    <div>Loading...</div>
+            }
         </div>
     );
 }
