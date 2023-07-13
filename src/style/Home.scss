@@ -10,4 +10,11 @@
     gap: 3rem;
     color: rgb(85, 85, 85);
     background-color: #f3f5f9;
+    &__sub{
+        &__discover{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
 }

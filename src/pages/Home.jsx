@@ -4,6 +4,7 @@ import '../style/Home.scss'
 import axios from "axios";
 import Trending from "../components/Trending";
 import TopArtists from "../components/TopArtists";
+import SearchSection from "../components/SearchSection";
 
 const Home = () => {
 
@@ -37,7 +38,13 @@ const Home = () => {
         }catch(e){
             console.log(e);
         }
-    } 
+    }
+
+    const [inputQuery, setInputQuery] = useState('');
+
+    const handleInputValue = (text) => {
+        setInputQuery(text);
+    }
 
     useEffect(() => {
         getTrendingTrack();
@@ -47,12 +54,18 @@ const Home = () => {
     return(
         <div className="home">
             <h2 className="home__sub">Discover</h2>
-            {
-                trendingTrack ? 
-                    <Trending trackName={trendingTrack.name} artist={trendingTrack.artists[0].name} image={trendingTrack.album.images[0].url} /> 
-                    :
-                    <div>Loading...</div>
-            }
+            <div className="home__sub__discover">
+                {
+                    trendingTrack ? 
+                        <Trending 
+                            trackName={trendingTrack.name}
+                            artist={trendingTrack.artists[0].name}
+                            image={trendingTrack.album.images[0].url} /> 
+                        :
+                        <div>Loading...</div>
+                }
+                <SearchSection onInput={handleInputValue} />
+            </div>
             {artists ? <TopArtists artists={artists} /> : <div>Loading...</div>}
         </div>
     )

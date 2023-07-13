@@ -1,0 +1,10 @@
+.checkbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    &__input{
+        padding: 1rem;
+        transform: scale(1.5);
+    }
+}
