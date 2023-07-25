@@ -3,10 +3,14 @@ import '../style/Checkbox.scss'
 
 const Checkbox = (props) => {
 
+    const check = (event) => {
+        props.onCheck(event.target.checked)
+    }
+
     return(
         <div className="checkbox">
-            <input className="checkbox__input" type="checkbox" name={props.name} />
-            <label htmlFor={props.name}>{props.name}</label>
+            <input onChange={check} className="checkbox__input" type="checkbox" name={props.name} />
+            <label className="checkbox__text" htmlFor={props.name}>{props.name}</label>
         </div>
     );
 }

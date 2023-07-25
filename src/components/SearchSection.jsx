@@ -6,10 +6,23 @@ import Checkbox from "./Checkbox";
 
 const SearchSection = (props) => {
 
-    const checkboxes = ['Artist', 'Track', 'Album'];
-
     const handleInput = (event) => {
         props.onInput(event.target.value);
+    }
+
+    const [isArtistChecked, setIsArtistChecked] = useState(false);
+    const handleCheckedArtist = (isChecked) => {
+        setIsArtistChecked(isChecked);
+    }
+
+    const [isTrackChecked, setIsTrackChecked] = useState(false);
+    const handleCheckedTrack = (isChecked) => {
+        setIsTrackChecked(isChecked);
+    }
+
+    const [isAlbumChecked, setIsAlbumChecked] = useState(false);
+    const handleCheckedAlbum = (isChecked) => {
+        setIsAlbumChecked(isChecked);
     }
 
     return(
@@ -20,7 +33,9 @@ const SearchSection = (props) => {
                 <img src={SearchIcon} alt="search" className="search-section__input-section__icon" />
             </div>
             <div className="search-section__checkboxes">
-                { checkboxes.map((checkbox, index) => <Checkbox key={index} name={checkbox} />) }
+                <Checkbox name='Artist' onCheck={handleCheckedArtist} />
+                <Checkbox name='Track' onCheck={handleCheckedTrack} />
+                <Checkbox name='Album' onCheck={handleCheckedAlbum} />
             </div>
         </div>
     );

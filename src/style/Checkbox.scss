@@ -1,3 +1,5 @@
+@import 'variables';
+
 .checkbox{
     display: flex;
     flex-direction: row;
@@ -6,5 +8,8 @@
     &__input{
         padding: 1rem;
         transform: scale(1.5);
+    }
+    &__text{
+        color: $gray;
     }
 }

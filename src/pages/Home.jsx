@@ -41,6 +41,7 @@ const Home = () => {
     }
 
     const [inputQuery, setInputQuery] = useState('');
+    const [checkedParameters, setCheckedParameters] = useState([]);
 
     const handleInputValue = (text) => {
         setInputQuery(text);
