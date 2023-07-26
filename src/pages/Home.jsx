@@ -41,10 +41,30 @@ const Home = () => {
     }
 
     const [inputQuery, setInputQuery] = useState('');
-    const [checkedParameters, setCheckedParameters] = useState([]);
+    const [checkedParameters, setCheckedParameters] = useState('');
 
     const handleInputValue = (text) => {
-        setInputQuery(text);
+        const input = text.replace(' ', '+');
+        setInputQuery(input);
+    }
+
+    const handleCheckbox = (artist, track, album) => {
+        const selectedValues = [
+            artist && 'artist',
+            track && 'track',
+            album && 'album',
+        ].filter(Boolean);
+
+        setCheckedParameters(selectedValues.join('%2C'));
+    }
+
+    const getSearch = async() => {
+        try{
+            const response = await axios.get(`${URL}/search?q=${inputQuery}+&type=${checkedParameters}`, config);
+            console.log(response.data);
+        }catch(e){
+            console.log(e);
+        }
     }
 
     useEffect(() => {
@@ -65,7 +85,7 @@ const Home = () => {
                         :
                         <div>Loading...</div>
                 }
-                <SearchSection onInput={handleInputValue} />
+                <SearchSection onSearch={getSearch} onValueChange={handleCheckbox} onInput={handleInputValue} />
             </div>
             {artists ? <TopArtists artists={artists} /> : <div>Loading...</div>}
         </div>
