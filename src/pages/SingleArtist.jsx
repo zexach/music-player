@@ -41,21 +41,21 @@ const SingleArtist = () => {
         }
     }
 
-    const [isLiked, setIsLiked] = useState(false);
+    const [isLiked, setIsLiked] = useState(false); 
 
-    const handleIsLiked = async() => {
-        /*if(!isLiked){
+    const handleFollowArtist = async() => {
+        if(!isLiked){
             try{
-                const response = await axios.get(`${URL}/me/following/contains?type=artist&ids=${id}`, 
-                {
-                    "ids": [
-                        "string"
-                    ]
-                },
+                const response = await axios.put(`${URL}/me/following?type=artist&ids=${id}`, 
+                    {
+                        "ids": [
+                            "string"
+                        ]
+                    },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
+                            'Content-Type':'application/json'
                         }
                     }
                 )
@@ -63,7 +63,7 @@ const SingleArtist = () => {
             }catch(e){
                 console.log(e);
             }
-        }*/
+        }
         setIsLiked(!isLiked);
     }
 
@@ -72,7 +72,6 @@ const SingleArtist = () => {
     const getArtistAlbums = async() => {
         try{
             const response = await axios.get(`${URL}/artists/${id}/albums`, config);
-            console.log(response.data.items);
             setAlbums(response.data.items);
         }catch(e){
             console.log(e);
@@ -95,7 +94,7 @@ const SingleArtist = () => {
                         image={artist.images[0].url} 
                         genres={artist.genres}
                         isLiked={isLiked}
-                        handleLike={handleIsLiked} /> : 
+                        handleLike={handleFollowArtist} /> : 
                     <div>Loading...</div> 
             }
             {

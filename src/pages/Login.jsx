@@ -7,8 +7,11 @@ const Login = () => {
     const clientID = import.meta.env.VITE_CLIENT_ID;
     const redirectURI = import.meta.env.VITE_REDIRECT_URI;
     const responseType = import.meta.env.VITE_RESPONSE_TYPE;
+    const scopes = [
+        'user-follow-modify'
+    ];
 
-    const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}`;
+    const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scopes.join('%20')}&response_type=${responseType}`;
 
 
     const getDataFromURL = () => {

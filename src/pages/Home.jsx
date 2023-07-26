@@ -45,7 +45,7 @@ const Home = () => {
 
     const handleInputValue = (text) => {
         const input = text.replace(' ', '+');
-        setInputQuery(input);
+        setInputQuery(input.toLowerCase());
     }
 
     const handleCheckbox = (artist, track, album) => {
@@ -59,11 +59,13 @@ const Home = () => {
     }
 
     const getSearch = async() => {
-        try{
-            const response = await axios.get(`${URL}/search?q=${inputQuery}+&type=${checkedParameters}`, config);
-            console.log(response.data);
-        }catch(e){
-            console.log(e);
+        if(inputQuery && checkedParameters){
+            try{
+                const response = await axios.get(`${URL}/search?q=${inputQuery}+&type=${checkedParameters}`, config);
+                console.log(response.data);
+            }catch(e){
+                console.log(e);
+            }
         }
     }
 
