@@ -31,7 +31,6 @@ const SearchSection = (props) => {
 
     return(
         <div className="search-section">
-            <h4 className="search-section__title">Search your favourite artist, track or album</h4>
             <div className="search-section__input-section">
                 <input onChange={handleInput} type="text" placeholder="Search..." className="search-section__input-section__input" />
                 <img onClick={props.onSearch} src={SearchIcon} alt="search" className="search-section__input-section__icon" />

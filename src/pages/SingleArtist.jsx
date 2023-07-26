@@ -19,7 +19,6 @@ const SingleArtist = () => {
     };
 
     const [artist, setArtist] = useState({});
-
     const getArtist = async() => {
         try{
             const response = await axios.get(`${URL}/artists/${id}`, config);
@@ -31,7 +30,6 @@ const SingleArtist = () => {
     }
 
     const [topTracks, setTopTracks] = useState({})
-
     const getArtistTopTracks = async() => {
         try{
             const response = await axios.get(`${URL}/artists/${id}/top-tracks?market=US`, config);
@@ -41,12 +39,30 @@ const SingleArtist = () => {
         }
     }
 
-    const [isLiked, setIsLiked] = useState(false); 
+    const [albums, setAlbums] = useState();
+    const getArtistAlbums = async() => {
+        try{
+            const response = await axios.get(`${URL}/artists/${id}/albums`, config);
+            setAlbums(response.data.items);
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    const [isLiked, setIsLiked] = useState(false);
+    const getIsLiked = async() => {
+        try{
+            const response = await axios.get(`${URL}/me/following/contains?type=artist&ids=${id}`, config)
+            setIsLiked(response.data[0]);
+        }catch(e){
+            console.log(e);
+        }
+    }
 
     const handleFollowArtist = async() => {
         if(!isLiked){
             try{
-                const response = await axios.put(`${URL}/me/following?type=artist&ids=${id}`, 
+                const response = await axios.put(`${URL}/me/following?type=artist&ids=${id}`,
                     {
                         "ids": [
                             "string"
@@ -59,29 +75,36 @@ const SingleArtist = () => {
                         }
                     }
                 )
-                console.log(response);
+                setIsLiked(!isLiked);
             }catch(e){
                 console.log(e);
             }
         }
-        setIsLiked(!isLiked);
-    }
-
-    const [albums, setAlbums] = useState();
-
-    const getArtistAlbums = async() => {
-        try{
-            const response = await axios.get(`${URL}/artists/${id}/albums`, config);
-            setAlbums(response.data.items);
-        }catch(e){
-            console.log(e);
-        }
+        else{
+            try{
+                const response = await axios.delete(`${URL}/me/following?type=artist&ids=${id}`, 
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type':'application/json'
+                        },
+                        data: {
+                            ids: ["string"]
+                        }
+                    }
+                )
+                setIsLiked(!isLiked);
+            }catch(e){
+                console.log(e);
+            }
+        }        
     }
 
     useEffect(() => {
         getArtist();
         getArtistTopTracks();
         getArtistAlbums();
+        getIsLiked();
     }, [])
 
     return(

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import '../style/Login.scss'
 
 const Login = () => {
@@ -8,14 +9,13 @@ const Login = () => {
     const redirectURI = import.meta.env.VITE_REDIRECT_URI;
     const responseType = import.meta.env.VITE_RESPONSE_TYPE;
     const scopes = [
-        'user-follow-modify'
+        'user-follow-modify',
+        'user-follow-read'
     ];
 
-    const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scopes.join('%20')}&response_type=${responseType}`;
-
+    const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}&scope=${scopes.join('%20')}&show_dialog=true`;
 
     const getDataFromURL = () => {
-
         const data = window.location.hash.substring(1).split('&').reduce((initial, item) => {
             let parts = item.split("=");
             initial[parts[0]] = decodeURIComponent(parts[1]);
@@ -32,6 +32,7 @@ const Login = () => {
             const spotifyToken = getDataFromURL().access_token;
             window.localStorage.setItem("token", spotifyToken);
             window.location.hash = '';
+
         }
     }, [])
 
