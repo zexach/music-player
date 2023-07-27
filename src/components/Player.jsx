@@ -45,22 +45,66 @@ const Player = (props) => {
             player.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
-    
-    
+
+            player.addListener('player_state_changed', ( state => {
+
+                if (!state) {
+                    return;
+                }
+
+                setTrack(state.track_window.current_track);
+                setPaused(state.paused);
+
+                player.getCurrentState().then( state => { 
+                    (!state)? setActive(false) : setActive(true) 
+                });
+
+            }));
+
             player.connect();
     
         };
     }, []);
 
-    return(
-        <>
-            <div className="container">
-                <div className="main-wrapper">
-
+    if(!is_active){ 
+        return (
+            <>
+                <div className="container">
+                    <div className="main-wrapper">
+                        <b> Instance not active. Transfer your playback using your Spotify app </b>
+                    </div>
                 </div>
-            </div>
-        </>
-    );
+            </>)
+    }
+    else{
+        return (
+            <>
+                <div className="container">
+                    <div className="main-wrapper">
+
+                        <img src={current_track.album.images[0].url} className="now-playing__cover" alt="" />
+
+                        <div className="now-playing__side">
+                            <div className="now-playing__name">{current_track.name}</div>
+                            <div className="now-playing__artist">{current_track.artists[0].name}</div>
+
+                            <button className="btn-spotify" onClick={() => { player.previousTrack() }} >
+                                &lt;&lt;
+                            </button>
+
+                            <button className="btn-spotify" onClick={() => { player.togglePlay() }} >
+                                { is_paused ? "PLAY" : "PAUSE" }
+                            </button>
+
+                            <button className="btn-spotify" onClick={() => { player.nextTrack() }} >
+                                &gt;&gt;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
 }
 
 export default Player;

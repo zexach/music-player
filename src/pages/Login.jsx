@@ -10,7 +10,12 @@ const Login = () => {
     const responseType = import.meta.env.VITE_RESPONSE_TYPE;
     const scopes = [
         'user-follow-modify',
-        'user-follow-read'
+        'user-follow-read',
+        'user-modify-playback-state',
+        'user-read-playback-state',
+        'streaming',
+        'user-read-email',
+        'user-read-private'
     ];
 
     const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}&scope=${scopes.join('%20')}&show_dialog=true`;

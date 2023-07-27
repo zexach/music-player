@@ -100,6 +100,15 @@ const SingleArtist = () => {
         }        
     }
 
+    const getActiveDevices = async() => {
+        try{
+            const response = await axios.get(`${URL}/me/player/devices`, config);
+            console.log(response.data);
+        }catch(e){
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
         getArtist();
         getArtistTopTracks();
@@ -120,6 +129,7 @@ const SingleArtist = () => {
                         handleLike={handleFollowArtist} /> : 
                     <div>Loading...</div> 
             }
+
             {
                 topTracks.tracks ? 
                     <TopTracks tracks={topTracks.tracks} /> : ''
