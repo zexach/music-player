@@ -5,7 +5,6 @@ import axios from "axios";
 import Trending from "../components/Trending";
 import TopArtists from "../components/TopArtists";
 import SearchSection from "../components/SearchSection";
-import Player from "../components/Player"
 
 const Home = () => {
 
@@ -70,30 +69,6 @@ const Home = () => {
         }
     }
 
-    //method for choosing song
-    const handlePlayButton = async() => {
-        try{
-            const response = await axios.put(`${URL}/me/player/play`,
-                {
-                    "context_uri": "spotify:album:5ht7ItJgpBH7W6vJ5BqpPr",
-                    "offset": {
-                        "position": 5
-                    },
-                    "position_ms": 0
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type':'application/json'
-                    }
-                }
-            );
-            console.log(response);
-        }catch(e){
-            console.log(e);
-        }
-    }
-
     useEffect(() => {
         getTrendingTrack();
         getArtists();
@@ -115,7 +90,6 @@ const Home = () => {
                 <SearchSection onSearch={getSearch} onValueChange={handleCheckbox} onInput={handleInputValue} />
             </div>
             {artists ? <TopArtists artists={artists} /> : <div>Loading...</div>}
-            <Player token={token} />
         </div>
     )
 }

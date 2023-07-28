@@ -3,8 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Home from './Home'
 import Explore from './Explore'
-import '../style/App.scss'
 import SingleArtist from "./SingleArtist";
+import Track from "./Track";
+import '../style/App.scss'
 
 const MusicApp = () => {
 
@@ -15,6 +16,7 @@ const MusicApp = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='explore' element={<Explore />} />
                 <Route path='artist/:id' element={<SingleArtist />} />
+                <Route path='track/:id' element={<Track />} />
             </Routes>
         </div>
     );

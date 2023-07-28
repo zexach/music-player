@@ -1,5 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import '../style/Player.scss'
+import alert from '../assets/alert.svg'
+import play from '../assets/play.svg'
+import pause from '../assets/pause.svg'
+import leftarrow from '../assets/leftarrow.svg'
+import rightarrow from '../assets/rightarrow.svg'
+
+
 
 const Player = (props) => {
 
@@ -39,6 +47,7 @@ const Player = (props) => {
             setPlayer(player);
     
             player.addListener('ready', ({ device_id }) => {
+                props.onLoad(device_id);
                 console.log('Ready with Device ID', device_id);
             });
     
@@ -69,39 +78,43 @@ const Player = (props) => {
     if(!is_active){ 
         return (
             <>
-                <div className="container">
-                    <div className="main-wrapper">
-                        <b> Instance not active. Transfer your playback using your Spotify app </b>
-                    </div>
+                <div className="alert">
+                    <img src={alert} alt="" />
+                    <h2 className="alert__text"> Instance <b>not active</b>. Transfer your playback using your Spotify app </h2>
                 </div>
             </>)
     }
     else{
         return (
             <>
-                <div className="container">
-                    <div className="main-wrapper">
+            { current_track ? 
 
-                        <img src={current_track.album.images[0].url} className="now-playing__cover" alt="" />
-
-                        <div className="now-playing__side">
-                            <div className="now-playing__name">{current_track.name}</div>
-                            <div className="now-playing__artist">{current_track.artists[0].name}</div>
-
-                            <button className="btn-spotify" onClick={() => { player.previousTrack() }} >
-                                &lt;&lt;
-                            </button>
-
-                            <button className="btn-spotify" onClick={() => { player.togglePlay() }} >
-                                { is_paused ? "PLAY" : "PAUSE" }
-                            </button>
-
-                            <button className="btn-spotify" onClick={() => { player.nextTrack() }} >
-                                &gt;&gt;
-                            </button>
-                        </div>
+                <div className="player">
+                <img src={current_track.album.images[0].url} className="player__now-playing__cover" alt="" />
+                <div className="player__now-playing__side">
+                    <div className="player__now-playing__side__details">
+                        <h3 className="player__now-playing__side__details__name">{current_track.name}</h3>
+                        <p className="player__now-playing__side__details__artist">{current_track.artists[0].name}</p>
+                    </div>
+                    <div className="player__now-playing__side__buttons">
+                        <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.previousTrack() }} >
+                            <img src={leftarrow} alt="leftarrow" />
+                        </button>
+                        <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.togglePlay() }} >
+                            { is_paused ? <img src={play} alt="play" /> : <img src={pause} alt="pause" /> }
+                        </button>
+                        <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.nextTrack() }} >
+                            <img src={rightarrow} alt="rightarrow" />
+                        </button>
                     </div>
                 </div>
+                </div>
+
+                :
+
+                'Loading'
+
+            }
             </>
         );
     }
