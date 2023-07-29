@@ -36,10 +36,10 @@ const Player = (props) => {
     
         document.body.appendChild(script);
     
-        window.onSpotifyWebPlaybackSDKReady = () => {
+        window.onSpotifyWebPlaybackSDKReady = async() => {
     
             const player = new window.Spotify.Player({
-                name: 'Web Playback SDK',
+                name: 'Star Tunes',
                 getOAuthToken: cb => { cb(props.token); },
                 volume: 0.5
             });
@@ -49,6 +49,7 @@ const Player = (props) => {
             player.addListener('ready', ({ device_id }) => {
                 props.onLoad(device_id);
                 console.log('Ready with Device ID', device_id);
+
             });
     
             player.addListener('not_ready', ({ device_id }) => {
@@ -71,7 +72,7 @@ const Player = (props) => {
             }));
 
             player.connect();
-    
+            setTimeout(() => props.setTrack(), 5000)
         };
     }, []);
 

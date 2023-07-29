@@ -28,18 +28,7 @@ const Track = () => {
         }
     }
 
-
-    const [availableDevices, setAvailableDevices] = useState();
-    const getAvailableDevices = async() => {
-        try{
-            const response = await axios.get(`${URL}/me/player/devices`, config);
-            console.log(response.data.devices);
-            setAvailableDevices(response.data.devices);
-        }catch(e){
-            console.log(e);
-        }
-    }
-
+    const [isTransfered, setIsTransfered] = useState(false);
     const transferPlayback = async(id) => {
             try{
                 const response = await axios.put(`${URL}/me/player`, 
@@ -47,14 +36,12 @@ const Track = () => {
                         'device_ids': [`${id}`]
                     },
                     config
-                )
-                console.log(response);
+                );
+                return setIsTransfered(true);
             }catch(e){
                 console.log(e);
             }
     }
-
-
 
     const setTrackSpotify = async() => {
         if(track){
@@ -82,9 +69,7 @@ const Track = () => {
     }
 
     useEffect(() => {
-        getAvailableDevices();
         getTrack();
-        setTrackSpotify();
     }, [])
 
 
@@ -92,7 +77,7 @@ const Track = () => {
         <>
         {track ? 
         <div className="track">
-            <Player onLoad={transferPlayback} token={token} />
+            <Player onLoad={transferPlayback} setTrack={setTrackSpotify} token={token} />
         </div> : ''}
         </>
     );
