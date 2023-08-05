@@ -6,6 +6,7 @@ import play from '../assets/play.svg'
 import pause from '../assets/pause.svg'
 import leftarrow from '../assets/leftarrow.svg'
 import rightarrow from '../assets/rightarrow.svg'
+import Loading from './Loading'
 
 
 
@@ -33,62 +34,60 @@ const Player = (props) => {
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
-    
+        
         document.body.appendChild(script);
-    
-        window.onSpotifyWebPlaybackSDKReady = async() => {
+        
+        window.onSpotifyWebPlaybackSDKReady = () => {
     
             const player = new window.Spotify.Player({
                 name: 'Star Tunes',
                 getOAuthToken: cb => { cb(props.token); },
                 volume: 0.5
             });
-    
+            
             setPlayer(player);
-    
+            
             player.addListener('ready', ({ device_id }) => {
                 props.onLoad(device_id);
                 console.log('Ready with Device ID', device_id);
-
             });
-    
+            
             player.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
-
+            
             player.addListener('player_state_changed', ( state => {
-
+                
                 if (!state) {
                     return;
                 }
-
+                
                 setTrack(state.track_window.current_track);
                 setPaused(state.paused);
-
+                
                 player.getCurrentState().then( state => { 
                     (!state)? setActive(false) : setActive(true) 
                 });
-
+                
             }));
-
+            
             player.connect();
-            setTimeout(() => props.setTrack(), 5000)
+            setTimeout(() => props.setTrack(), 5000);
         };
+
+        console.log(props.track.name);
+        console.log(current_track.name);
     }, []);
 
     if(!is_active){ 
         return (
-            <>
-                <div className="alert">
-                    <img src={alert} alt="" />
-                    <h2 className="alert__text"> Instance <b>not active</b>. Transfer your playback using your Spotify app </h2>
-                </div>
-            </>)
+            <Loading />
+        )
     }
     else{
         return (
             <>
-            { current_track ? 
+            { props.track.name === current_track.name ? 
 
                 <div className="player">
                 <img src={current_track.album.images[0].url} className="player__now-playing__cover" alt="" />
@@ -113,7 +112,7 @@ const Player = (props) => {
 
                 :
 
-                'Loading'
+                <Loading />
 
             }
             </>

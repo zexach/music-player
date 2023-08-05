@@ -21,28 +21,26 @@ const Track = () => {
     const getTrack = async() => {
         try{
             const response = await axios.get(`${URL}/tracks/${id}`, config);
-            console.log(response.data);
             setTrack(response.data);
         }catch(e){
             console.log(e);
         }
     }
 
-    const [isTransfered, setIsTransfered] = useState(false);
     const transferPlayback = async(id) => {
-            try{
-                const response = await axios.put(`${URL}/me/player`, 
-                    {
-                        'device_ids': [`${id}`]
-                    },
-                    config
-                );
-                return setIsTransfered(true);
-            }catch(e){
-                console.log(e);
-            }
+        try{
+            const response = await axios.put(`${URL}/me/player`, 
+            {
+                'device_ids': [`${id}`]
+            },
+            config
+            );
+        }catch(e){
+            console.log(e);
+        }
     }
-
+    
+    const [isLoaded, setIsLoaded] = useState(false);
     const setTrackSpotify = async() => {
         if(track){
             try{
@@ -60,24 +58,24 @@ const Track = () => {
                             'Content-Type':'application/json'
                         }
                     }
-                );
-                console.log(response);
+                )
+                setIsLoaded(true);
             }catch(e){
                 console.log(e);
             }
         }
     }
-
+  
     useEffect(() => {
         getTrack();
-    }, [])
+    }, []);
 
 
     return(
         <>
         {track ? 
         <div className="track">
-            <Player onLoad={transferPlayback} setTrack={setTrackSpotify} token={token} />
+            <Player onLoad={transferPlayback} track={track} setTrack={setTrackSpotify} token={token} />
         </div> : ''}
         </>
     );
