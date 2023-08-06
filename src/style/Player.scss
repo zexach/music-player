@@ -42,11 +42,11 @@
                 gap: 0.2rem;
                 &__name{
                     font-size: 26px;
-                    color: #fff;
+                    color: $text-gray;
                 }
                 &__artist{
                     font-size: 18px;
-                    color: #fff;
+                    color: $text-gray;
                 }
             }
             &__buttons{

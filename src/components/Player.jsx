@@ -7,6 +7,7 @@ import pause from '../assets/pause.svg'
 import leftarrow from '../assets/leftarrow.svg'
 import rightarrow from '../assets/rightarrow.svg'
 import Loading from './Loading'
+import Trackbar from "./Trackbar";
 
 
 
@@ -75,9 +76,10 @@ const Player = (props) => {
             setTimeout(() => props.setTrack(), 5000);
         };
 
-        console.log(props.track.name);
+        console.log(props.track);
         console.log(current_track.name);
     }, []);
+
 
     if(!is_active){ 
         return (
@@ -87,27 +89,28 @@ const Player = (props) => {
     else{
         return (
             <>
-            { props.track.name === current_track.name ? 
+            { current_track ? 
 
                 <div className="player">
-                <img src={current_track.album.images[0].url} className="player__now-playing__cover" alt="" />
-                <div className="player__now-playing__side">
-                    <div className="player__now-playing__side__details">
-                        <h3 className="player__now-playing__side__details__name">{current_track.name}</h3>
-                        <p className="player__now-playing__side__details__artist">{current_track.artists[0].name}</p>
+                    <img src={current_track.album.images[0].url} className="player__now-playing__cover" alt="" />
+                    <div className="player__now-playing__side">
+                        <div className="player__now-playing__side__details">
+                            <h3 className="player__now-playing__side__details__name">{current_track.name}</h3>
+                            <p className="player__now-playing__side__details__artist">{current_track.artists[0].name}</p>
+                        </div>
+                        <div className="player__now-playing__side__buttons">
+                            <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.previousTrack() }} >
+                                <img src={leftarrow} alt="leftarrow" />
+                            </button>
+                            <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.togglePlay() }} >
+                                { is_paused ? <img src={play} alt="play" /> : <img src={pause} alt="pause" /> }
+                            </button>
+                            <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.nextTrack() }} >
+                                <img src={rightarrow} alt="rightarrow" />
+                            </button>
+                        </div>
+                        <Trackbar isPaused={is_paused} duration={current_track.duration_ms} />
                     </div>
-                    <div className="player__now-playing__side__buttons">
-                        <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.previousTrack() }} >
-                            <img src={leftarrow} alt="leftarrow" />
-                        </button>
-                        <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.togglePlay() }} >
-                            { is_paused ? <img src={play} alt="play" /> : <img src={pause} alt="pause" /> }
-                        </button>
-                        <button className="player__now-playing__side__buttons__btn-spotify" onClick={() => { player.nextTrack() }} >
-                            <img src={rightarrow} alt="rightarrow" />
-                        </button>
-                    </div>
-                </div>
                 </div>
 
                 :
