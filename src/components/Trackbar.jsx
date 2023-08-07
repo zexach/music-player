@@ -9,18 +9,11 @@ const Trackbar = (props) => {
 
     const duration = props.duration;
     
-    const convertToMinutes = (duration_ms) => {
-        let seconds = duration_ms / 1000;
-        let minutes = seconds / 60;
-        let decimal = minutes - Math.floor(minutes);
+    const convertToMinutes = (ms) => {
+        let minutes = Math.floor(ms / 60000);
+        let seconds = Math.floor((ms % 60000) / 1000);
 
-        if(decimal >= 0.60){
-            decimal = decimal - 0.60;
-            minutes = Math.round(minutes);
-        }
-        minutes = Math.floor(minutes);
-        decimal = Math.round(decimal*100).toString().padStart(2, '0');
-        return (minutes + ':' + decimal);
+        return (minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0'));
     }
 
     const [trackbarValue, setTrackbarValue] = useState(0);
@@ -39,7 +32,7 @@ const Trackbar = (props) => {
     useEffect(() => {
         if(!props.isPaused){
             const interval = setInterval(() => {
-                setTrackbarValue((prevValue) => ((prevValue + 100)))
+                setTrackbarValue((prevValue) => ((prevValue + 1000)));
               }, 1000);
           
               return () => {

@@ -8,19 +8,12 @@ const SingleTrack = (props) => {
     const [trackDuration, setTrackDuration] = useState('');
 
     const duration = props.duration;
-    let seconds = duration / 1000;
-    let minutes = seconds / 60;
-    let decimal = minutes - Math.floor(minutes);
 
-    
     const convertToMinutes = () => {
-        if(decimal >= 0.60){
-            decimal = decimal - 0.60;
-            minutes = Math.round(minutes);
-        }
-        minutes = Math.floor(minutes);
-        decimal = Math.round(decimal*100).toString().padStart(2, '0');
-        setTrackDuration(minutes + ':' + decimal);
+        let minutes = Math.floor(duration / 60000);
+        let seconds = Math.floor((duration % 60000) / 1000);
+
+        setTrackDuration(minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0'));
     }
 
     useEffect(() => {
