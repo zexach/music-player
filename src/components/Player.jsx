@@ -9,8 +9,6 @@ import rightarrow from '../assets/rightarrow.svg'
 import Loading from './Loading'
 import Trackbar from "./Trackbar";
 
-
-
 const Player = (props) => {
 
     const track = {
@@ -30,6 +28,8 @@ const Player = (props) => {
     const [is_active, setActive] = useState(false);
     const [current_track, setTrack] = useState(track);
 
+    let playerInstance;
+
     useEffect(() => {
 
         const script = document.createElement("script");
@@ -45,14 +45,20 @@ const Player = (props) => {
                 getOAuthToken: cb => { cb(props.token); },
                 volume: 0.5
             });
-            
+
             setPlayer(player);
+            playerInstance = player;
             
-            player.addListener('ready', ({ device_id }) => {
-                props.onLoad(device_id);
-                console.log('Ready with Device ID', device_id);
+            player.addListener('ready', async({ device_id }) => {
+
+                await props.onLoad(device_id);
+
+                setTimeout(() => {
+                    props.setTrack();
+                }, 1000);
+
             });
-            
+
             player.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
@@ -73,11 +79,16 @@ const Player = (props) => {
             }));
             
             player.connect();
-            setTimeout(() => props.setTrack(), 5000);
+        };
+        
+        return () => {
+            if(playerInstance) {
+                playerInstance.removeListener('ready');
+                // playerInstance.disconnect();
+                console.log('Player disconnected');
+            }
         };
 
-        console.log(props.track);
-        console.log(current_track.name);
     }, []);
 
 

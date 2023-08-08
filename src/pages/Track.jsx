@@ -35,6 +35,7 @@ const Track = () => {
             },
             config
             );
+            console.log('Ready with Device ID', id);
         }catch(e){
             console.log(e);
         }
@@ -63,6 +64,15 @@ const Track = () => {
             }catch(e){
                 console.log(e);
             }
+        }
+    }
+
+    const getAvailableDevices = async() => {
+        try{
+            const response = await axios.get(`https://api.spotify.com/v1/me/player/devices`, config);
+            console.log(response.data);
+        }catch(e){
+            console.log(e);
         }
     }
   
