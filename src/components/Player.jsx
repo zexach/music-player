@@ -84,7 +84,7 @@ const Player = (props) => {
         return () => {
             if(playerInstance) {
                 playerInstance.removeListener('ready');
-                // playerInstance.disconnect();
+                playerInstance.disconnect();
                 console.log('Player disconnected');
             }
         };

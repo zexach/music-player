@@ -15,7 +15,9 @@ const Login = () => {
         'user-read-playback-state',
         'streaming',
         'user-read-email',
-        'user-read-private'
+        'user-read-private',
+        'app-remote-control',
+        'streaming'
     ];
 
     const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}&scope=${scopes.join('%20')}&show_dialog=true`;

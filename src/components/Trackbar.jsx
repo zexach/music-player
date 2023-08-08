@@ -1,14 +1,10 @@
 import React from "react";
 import '../style/Trackbar.scss'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { MyContext } from '../pages/Track'
 
 const Trackbar = (props) => {
 
-    const [currentPosition, setCurrentPosition] = useState('');
-    const [trackDuration, setTrackDuration] = useState('');
-
-    const duration = props.duration;
-    
     const convertToMinutes = (ms) => {
         let minutes = Math.floor(ms / 60000);
         let seconds = Math.floor((ms % 60000) / 1000);
@@ -16,21 +12,24 @@ const Trackbar = (props) => {
         return (minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0'));
     }
 
+    const { seekToPosition } = useContext(MyContext);
+
     const [trackbarValue, setTrackbarValue] = useState(0);
     const handleTrackbar = (event) => {
-        setTrackbarValue(event.target.value);
+        setTrackbarValue(parseInt(event.target.value));
+        seekToPosition(parseInt(event.target.value));
     }
-
+    
+    const duration = props.duration;
+    const [trackDuration, setTrackDuration] = useState('');
+    const [currentPosition, setCurrentPosition] = useState('');
     useEffect(() => {
         setTrackDuration(convertToMinutes(duration));
-    }, [duration]);
-
-    useEffect(() => {
         setCurrentPosition(convertToMinutes(trackbarValue));
-    }, [trackbarValue]);
+    }, [duration, trackbarValue]);
 
     useEffect(() => {
-        if(!props.isPaused){
+        if(!props.isPaused && trackbarValue < duration){
             const interval = setInterval(() => {
                 setTrackbarValue((prevValue) => ((prevValue + 1000)));
               }, 1000);
@@ -39,7 +38,7 @@ const Trackbar = (props) => {
                 clearInterval(interval);
               };
         }
-      }, [props.isPaused]);
+      }, [props.isPaused, trackbarValue]);
 
     return(
         <>

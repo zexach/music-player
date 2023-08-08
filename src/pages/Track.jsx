@@ -1,10 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import '../style/Track.scss'
 import Player from "../components/Player"
 
+export const MyContext = createContext();
 
 const Track = () => {
 
@@ -41,7 +42,6 @@ const Track = () => {
         }
     }
     
-    const [isLoaded, setIsLoaded] = useState(false);
     const setTrackSpotify = async() => {
         if(track){
             try{
@@ -60,17 +60,17 @@ const Track = () => {
                         }
                     }
                 )
-                setIsLoaded(true);
             }catch(e){
                 console.log(e);
             }
         }
     }
 
-    const getAvailableDevices = async() => {
+    const seekToPosition = async(ms) => {
         try{
-            const response = await axios.get(`https://api.spotify.com/v1/me/player/devices`, config);
-            console.log(response.data);
+            const response = await axios.put(`${URL}/me/player/seek?position_ms=${ms}`, {},
+                config
+            );
         }catch(e){
             console.log(e);
         }
@@ -85,7 +85,9 @@ const Track = () => {
         <>
         {track ? 
         <div className="track">
-            <Player onLoad={transferPlayback} track={track} setTrack={setTrackSpotify} token={token} />
+            <MyContext.Provider value={{ seekToPosition }}>
+                <Player onLoad={transferPlayback} setTrack={setTrackSpotify} token={token} />
+            </MyContext.Provider>
         </div> : ''}
         </>
     );
