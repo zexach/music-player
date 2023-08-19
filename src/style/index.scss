@@ -19,6 +19,10 @@ time, mark, audio, video, input {
 	font-family: 'Geologica', sans-serif;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body{
   width: 100%;
   min-height: 100vh;

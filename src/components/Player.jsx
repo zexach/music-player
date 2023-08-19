@@ -91,6 +91,10 @@ const Player = (props) => {
 
     }, []);
 
+    useEffect(() => {
+        props.onTrack(current_track);
+    }, [current_track])
+
 
     if(!is_active){ 
         return (

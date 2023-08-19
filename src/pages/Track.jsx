@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import '../style/Track.scss'
 import Player from "../components/Player"
+import useOverFlowHidden from "../hooks/useOverflowDisable";
 
 export const MyContext = createContext();
 
 const Track = () => {
+    
+    useOverFlowHidden();
 
     const token = localStorage.getItem("token");
     const {id} = useParams();
@@ -66,6 +69,11 @@ const Track = () => {
         }
     }
 
+    const [currentTrack, setCurrentTrack] = useState();
+    const handleCurrentTrack = (track) => {
+        setCurrentTrack(track);
+    }
+
     const seekToPosition = async(ms) => {
         try{
             const response = await axios.put(`${URL}/me/player/seek?position_ms=${ms}`, {},
@@ -85,9 +93,12 @@ const Track = () => {
         <>
         {track ? 
         <div className="track">
-            <MyContext.Provider value={{ seekToPosition }}>
-                <Player onLoad={transferPlayback} setTrack={setTrackSpotify} token={token} />
-            </MyContext.Provider>
+            {currentTrack ? <img src={currentTrack.album.images[0].url} alt="artist" className="track__artist-img" /> : ''}
+            <div className="track__player">
+                <MyContext.Provider value={{ seekToPosition }}>
+                    <Player onTrack={handleCurrentTrack} onLoad={transferPlayback} setTrack={setTrackSpotify} token={token} />
+                </MyContext.Provider>
+            </div>
         </div> : ''}
         </>
     );

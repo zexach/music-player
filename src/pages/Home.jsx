@@ -17,6 +17,7 @@ const Home = () => {
     };
 
     const artists_id = '2CIMQHirSU0MQqyYHq0eOx,1vCWHaC5f2uS3yhpwWbIA6,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,6VuMaDnrHyPL1p4EHjYLi7,49bzE5vRBRIota4qeHtQM8';
+    const artists_id_2 = '7BjXGqrW02WB9cnLKKzwrK,4yvRXgtIPiDMzH3wb1JPh7,39QpkKA8DlIerdivENnMdU,1vhshb6p5AJSSgAj2LLnpA,5SI9g7thDG4AvAzjefLDnY,66CXWjxzNUsdJxJ2JdwvnR,6eiVM12aC3SP5n0fMg9fqP';
     const [artists, setArtists] = useState([]);
 
     const getArtists = async() => {

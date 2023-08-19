@@ -1,10 +1,18 @@
 .track{
     width: 100%;
-    padding: 3rem;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgb(248,248,248);
-    background: radial-gradient(circle, rgba(248,248,248,1) 0%, rgba(216,222,209,1) 100%);
+    /*background: rgb(248,248,248);
+    background: radial-gradient(circle, rgba(248,248,248,1) 0%, rgba(216,222,209,1) 100%);*/
+    &__artist-img{
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+        position: absolute;
+        z-index: -1;
+        filter: blur(10px) brightness(60%);
+    }
 }

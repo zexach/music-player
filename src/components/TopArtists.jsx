@@ -13,7 +13,7 @@ const TopArtists = (props) => {
                 <p className="artist-section__header__see-more">Show All</p>
             </div>
             <div className="artist-section__artists">
-                {props.artists.map((artist, index) => <Link key={index} to={`/artist/${artist.id}`}><Artist  id={artist.id} name={artist.name} image={artist.images[0].url} /></Link>)}
+                {props.artists.map((artist, index) => <Link key={artist.id} to={`/artist/${artist.id}`}><Artist  id={artist.id} name={artist.name} image={artist.images[0].url} /></Link>)}
             </div>
         </div>
         </>
