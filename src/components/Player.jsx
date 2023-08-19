@@ -120,7 +120,7 @@ const Player = (props) => {
                                 <img src={rightarrow} alt="rightarrow" />
                             </button>
                         </div>
-                        <Trackbar isPaused={is_paused} duration={current_track.duration_ms} />
+                        <Trackbar track={current_track} isPaused={is_paused} duration={current_track.duration_ms} />
                     </div>
                 </div>
 

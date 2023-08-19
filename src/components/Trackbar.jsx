@@ -29,16 +29,26 @@ const Trackbar = (props) => {
     }, [duration, trackbarValue]);
 
     useEffect(() => {
-        if(!props.isPaused && trackbarValue < duration){
-            const interval = setInterval(() => {
-                setTrackbarValue((prevValue) => ((prevValue + 1000)));
-              }, 1000);
-          
-              return () => {
-                clearInterval(interval);
-              };
+
+        if(!props.isPaused){
+
+            if(trackbarValue < duration){
+                const interval = setInterval(() => {
+                    setTrackbarValue((prevValue) => {
+                        const newValue = prevValue + 1000;
+                        return newValue > duration ? duration : newValue;
+                    });
+                }, 1000);
+                return () => {
+                    clearInterval(interval);
+                };
+            }
         }
-      }, [props.isPaused, trackbarValue]);
+    }, [props.isPaused, trackbarValue]);
+
+    useEffect(() => {
+        setTrackbarValue(0);
+    }, [props.track.id])
 
     return(
         <>
