@@ -84,7 +84,8 @@ const Home = () => {
                         <Trending 
                             trackName={trendingTrack.name}
                             artist={trendingTrack.artists[0].name}
-                            image={trendingTrack.album.images[0].url} /> 
+                            image={trendingTrack.album.images[0].url}
+                            uri={trending_track_id} /> 
                         :
                         <div>Loading...</div>
                 }
