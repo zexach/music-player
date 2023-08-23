@@ -6,19 +6,11 @@
     flex-direction: column;
     gap: 2rem;
     border-radius: 7px;
-    border: 1px solid rgb(232, 232, 232);
-    background-color: #f9f9f9;
     &__header{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
         &__title{
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 25px;
             color: $text-gray;
-        }
-        &__see-more{
-            color: rgb(172, 171, 171);
-            cursor: pointer;
         }
     }
     &__artists{

@@ -101,6 +101,7 @@ const SingleArtist = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getArtist();
         getArtistTopTracks();
         getArtistAlbums();

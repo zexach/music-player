@@ -1,0 +1,20 @@
+@import 'variables';
+
+.tracks-section{
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-radius: 7px;
+    &__header{
+        &__title{
+            font-weight: 700;
+            font-size: 25px;
+            color: $text-gray;
+        }
+    }
+    &__tracks{
+        display: flex;
+        flex-direction: row;
+    }
+}

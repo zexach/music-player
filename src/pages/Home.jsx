@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import '../style/Home.scss'
 import axios from "axios";
 import Trending from "../components/Trending";
-import TopArtists from "../components/TopArtists";
+import TrendingArtists from "../components/TrendingArtists";
 import SearchSection from "../components/SearchSection";
+import TrendingAlbums from "../components/TrendingAlbums";
+import TrendingTracks from "../components/TrendingTracks";
 
 const Home = () => {
 
@@ -16,10 +18,9 @@ const Home = () => {
         }
     };
 
-    const artists_id = '2CIMQHirSU0MQqyYHq0eOx,1vCWHaC5f2uS3yhpwWbIA6,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,6VuMaDnrHyPL1p4EHjYLi7,49bzE5vRBRIota4qeHtQM8';
-    const artists_id_2 = '7BjXGqrW02WB9cnLKKzwrK,4yvRXgtIPiDMzH3wb1JPh7,39QpkKA8DlIerdivENnMdU,1vhshb6p5AJSSgAj2LLnpA,5SI9g7thDG4AvAzjefLDnY,66CXWjxzNUsdJxJ2JdwvnR,6eiVM12aC3SP5n0fMg9fqP';
+    const artists_id = '1vCWHaC5f2uS3yhpwWbIA6,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,6VuMaDnrHyPL1p4EHjYLi7,49bzE5vRBRIota4qeHtQM8';
+    const artists_id_2 = '7BjXGqrW02WB9cnLKKzwrK,4yvRXgtIPiDMzH3wb1JPh7,39QpkKA8DlIerdivENnMdU,1vhshb6p5AJSSgAj2LLnpA,66CXWjxzNUsdJxJ2JdwvnR,6eiVM12aC3SP5n0fMg9fqP';
     const [artists, setArtists] = useState([]);
-
     const getArtists = async() => {
         try{
             const response = await axios.get(`${URL}/artists?ids=${artists_id}`, config);
@@ -31,7 +32,6 @@ const Home = () => {
 
     const trending_track_id = '4rPkN1FMzQyFNP9cLUGIIB'
     const [trendingTrack, setTrendingTrack] = useState();
-
     const getTrendingTrack = async() => {
         try{
             const response = await axios.get(`${URL}/tracks/${trending_track_id}`, config);
@@ -41,9 +41,28 @@ const Home = () => {
         }
     }
 
+    const [trendingAlbums, setTrendingAlbums] = useState();
+    const getTrendingAlbums = async() => {
+        try{
+            const response = await axios.get(`${URL}/browse/new-releases?limit=10`, config);
+            setTrendingAlbums(response.data.albums.items);
+        }catch(e){
+            console.log(e);
+        }
+    }
+    
+    const [trendingTracks, setTrendingTracks] = useState();
+    const getTrendingTracks = async() => {
+        try{
+            const response = await axios.get(`${URL}/recommendations?limit=10&seed_genres=pop&min_popularity=80`, config);
+            console.log(response.data);
+        }catch(e){
+            console.log(e);
+        }
+    }
+
     const [inputQuery, setInputQuery] = useState('');
     const [checkedParameters, setCheckedParameters] = useState('');
-
     const handleInputValue = (text) => {
         const input = text.replace(' ', '+');
         setInputQuery(input.toLowerCase());
@@ -73,6 +92,8 @@ const Home = () => {
     useEffect(() => {
         getTrendingTrack();
         getArtists();
+        getTrendingAlbums();
+        getTrendingTracks();
     }, []);
 
     return(
@@ -91,7 +112,9 @@ const Home = () => {
                 }
                 <SearchSection onSearch={getSearch} onValueChange={handleCheckbox} onInput={handleInputValue} />
             </div>
-            {artists ? <TopArtists artists={artists} /> : <div>Loading...</div>}
+            {artists ? <TrendingArtists artists={artists} /> : <div>Loading...</div>}
+            <TrendingTracks />
+            <TrendingAlbums albums={trendingAlbums} />
         </div>
     )
 }
