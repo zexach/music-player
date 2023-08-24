@@ -14,11 +14,8 @@
         }
     }
     &__albums{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: repeat(5, 20%);
+        grid-gap: 1rem 0;
     }
 }

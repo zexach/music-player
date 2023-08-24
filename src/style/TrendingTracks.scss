@@ -14,7 +14,8 @@
         }
     }
     &__tracks{
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: repeat(3, 32%);
+        gap: 1rem;
     }
 }

@@ -54,8 +54,9 @@ const Home = () => {
     const [trendingTracks, setTrendingTracks] = useState();
     const getTrendingTracks = async() => {
         try{
-            const response = await axios.get(`${URL}/recommendations?limit=10&seed_genres=pop&min_popularity=80`, config);
-            console.log(response.data);
+            const response = await axios.get(`${URL}/recommendations?limit=9&seed_genres=pop%2Cdancepop&min_popularity=80`, config);
+            console.log(response.data.tracks);
+            setTrendingTracks(response.data.tracks);
         }catch(e){
             console.log(e);
         }
@@ -113,8 +114,8 @@ const Home = () => {
                 <SearchSection onSearch={getSearch} onValueChange={handleCheckbox} onInput={handleInputValue} />
             </div>
             {artists ? <TrendingArtists artists={artists} /> : <div>Loading...</div>}
-            <TrendingTracks />
-            <TrendingAlbums albums={trendingAlbums} />
+            {trendingTracks ? <TrendingTracks tracks={trendingTracks} /> : ''}
+            {trendingAlbums ?  <TrendingAlbums albums={trendingAlbums} /> : ''}
         </div>
     )
 }
