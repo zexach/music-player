@@ -8,7 +8,7 @@ const TopAlbums = (props) => {
     <>
         <div className="albums-section">
             <div className="albums-section__header">
-                <h3 className="albums-section__header__title">Trending Albums</h3>
+                <h3 className="albums-section__header__title">{props.title}</h3>
             </div>
             <div className="albums-section__albums">
                 {

@@ -1,7 +1,6 @@
 @import 'variables';
 
-
-.home{
+.explore{
     width: 100%;
     min-height: 100vh;
     padding: 3rem;
@@ -11,12 +10,4 @@
     color: rgb(85, 85, 85);
     background: rgb(248,248,248);
     background: linear-gradient(164deg, rgba(248,248,248,1) 0%, rgba(216,222,209,1) 100%);
-    &__sub{
-        font-size: 30px;
-        &__discover{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-    }
 }

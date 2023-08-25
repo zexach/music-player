@@ -4,7 +4,6 @@ import '../style/Home.scss'
 import axios from "axios";
 import Trending from "../components/Trending";
 import TrendingArtists from "../components/TrendingArtists";
-import SearchSection from "../components/SearchSection";
 import TrendingAlbums from "../components/TrendingAlbums";
 import TrendingTracks from "../components/TrendingTracks";
 
@@ -18,16 +17,24 @@ const Home = () => {
         }
     };
 
-    const artists_id = '1vCWHaC5f2uS3yhpwWbIA6,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,6VuMaDnrHyPL1p4EHjYLi7,49bzE5vRBRIota4qeHtQM8';
-    const artists_id_2 = '7BjXGqrW02WB9cnLKKzwrK,4yvRXgtIPiDMzH3wb1JPh7,39QpkKA8DlIerdivENnMdU,1vhshb6p5AJSSgAj2LLnpA,66CXWjxzNUsdJxJ2JdwvnR,6eiVM12aC3SP5n0fMg9fqP';
     const [artists, setArtists] = useState([]);
-    const getArtists = async() => {
+    const getUserTopArtist = async() => {
         try{
-            const response = await axios.get(`${URL}/artists?ids=${artists_id}`, config);
-            setArtists(response.data.artists);
+            const response = await axios.get(`${URL}/me/top/artists?time_range=medium_term&limit=6`, config);
+            setArtists(response.data.items);
         }catch(e){
             console.log(e);
         }
+    }
+
+    const [trendingTracks, setTrendingTracks] = useState();
+    const getUserTopTracks = async() => {
+        try{
+            const response = await axios.get(`${URL}/me/top/tracks?time_range=medium_term&limit=9`, config);
+            setTrendingTracks(response.data.items);
+        }catch(e){
+            console.log(e);
+        };
     }
 
     const trending_track_id = '4rPkN1FMzQyFNP9cLUGIIB'
@@ -50,51 +57,12 @@ const Home = () => {
             console.log(e);
         }
     }
-    
-    const [trendingTracks, setTrendingTracks] = useState();
-    const getTrendingTracks = async() => {
-        try{
-            const response = await axios.get(`${URL}/recommendations?limit=9&seed_genres=pop%2Cdancepop&min_popularity=80`, config);
-            console.log(response.data.tracks);
-            setTrendingTracks(response.data.tracks);
-        }catch(e){
-            console.log(e);
-        }
-    }
-
-    const [inputQuery, setInputQuery] = useState('');
-    const [checkedParameters, setCheckedParameters] = useState('');
-    const handleInputValue = (text) => {
-        const input = text.replace(' ', '+');
-        setInputQuery(input.toLowerCase());
-    }
-
-    const handleCheckbox = (artist, track, album) => {
-        const selectedValues = [
-            artist && 'artist',
-            track && 'track',
-            album && 'album',
-        ].filter(Boolean);
-
-        setCheckedParameters(selectedValues.join('%2C'));
-    }
-
-    const getSearch = async() => {
-        if(inputQuery && checkedParameters){
-            try{
-                const response = await axios.get(`${URL}/search?q=${inputQuery}+&type=${checkedParameters}`, config);
-                console.log(response.data);
-            }catch(e){
-                console.log(e);
-            }
-        }
-    }
 
     useEffect(() => {
-        getTrendingTrack();
-        getArtists();
+        getUserTopTracks();
         getTrendingAlbums();
-        getTrendingTracks();
+        getTrendingTrack();
+        getUserTopArtist();
     }, []);
 
     return(
@@ -111,11 +79,10 @@ const Home = () => {
                         :
                         <div>Loading...</div>
                 }
-                <SearchSection onSearch={getSearch} onValueChange={handleCheckbox} onInput={handleInputValue} />
             </div>
-            {artists ? <TrendingArtists artists={artists} /> : <div>Loading...</div>}
-            {trendingTracks ? <TrendingTracks tracks={trendingTracks} /> : ''}
-            {trendingAlbums ?  <TrendingAlbums albums={trendingAlbums} /> : ''}
+            {artists ? <TrendingArtists title='Top Artist for You' artists={artists} /> : <div>Loading...</div>}
+            {trendingTracks ? <TrendingTracks title='Listen again' tracks={trendingTracks} /> : ''}
+            {trendingAlbums ?  <TrendingAlbums title='Trending albums' albums={trendingAlbums} /> : ''}
         </div>
     )
 }

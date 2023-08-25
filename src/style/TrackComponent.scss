@@ -8,7 +8,6 @@
     align-items: center;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     cursor: pointer;
@@ -19,7 +18,8 @@
         gap: 1rem;
         &__img{
             width: 80px;
-            border-radius: 10px;
+            border-radius: 5px 0 0 5px;
+            box-shadow: 6px 0px 23px -7px rgba(0,0,0,0.14);
         }
         &__title{
             font-size: 15px;
